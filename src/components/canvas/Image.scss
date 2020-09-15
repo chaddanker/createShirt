@@ -1,0 +1,21 @@
+
+.image {
+
+    #img-loader {
+        width: 0.1px;height: 0.1px;opacity: 0;overflow: hidden;position: absolute;z-index: -1;
+    }
+    
+    #for-img {
+        margin-top: 3em;
+        width: 50px !important;
+        height: 50px !important;
+        border-radius: 50px !important;
+        margin-bottom: 0;
+    }
+    
+    #for-img i {
+        position: relative;
+        top: 5px;
+    }
+    
+}

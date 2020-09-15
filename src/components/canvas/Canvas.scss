@@ -1,0 +1,22 @@
+* {
+	transition: 0.4045s;
+}
+
+button {
+    border-radius: 0 !important;
+}
+
+.canvas {
+
+    background-color: #ffffff;
+    border: 1px solid #fbbd08;
+    width: 400px;
+    margin: 2.5em auto;
+    text-align: center;
+    height: 510px;
+
+    #done {
+        width: 100%;
+        height: 50px;
+    }    
+}

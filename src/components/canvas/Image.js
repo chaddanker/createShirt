@@ -1,11 +1,12 @@
 import React from 'react';
 
+import './Image.scss';
+
 const Image = ({ onFileUpload }) => {
 	return (
-		<div>
-	        <label id="for-img" for="img-loader" class="ui huge floated button" >
-	            <i class="ui upload icon"></i> 
-	            Upload image
+		<div className="image">
+	        <label id="for-img" htmlFor="img-loader" className="ui button">
+	            <i className="ui upload icon"></i>
 	        </label>
 			<input id="img-loader" type="file" onChange={(e) => onFileUpload(e)} />
 		</div>

@@ -1,0 +1,49 @@
+$backgroundColor: rgb(255, 255, 255);
+$primaryColor: #e0e1e2;
+$secondaryColorDarker: #bbbcbf;
+$highlightColor: #fbbd08;
+
+.tools {
+    height: 215px;
+    background-color: $backgroundColor;
+    z-index: 999;
+    margin: 10px;
+
+    .ui .grid .tools-select {
+        border-top: #fbbd08 !important;
+    }
+
+    #btn-download {
+        margin: 5px; 
+        height: 30px;
+    }
+    /* tools */
+    
+    .ui .vertical .icon .menu {
+        float: right;
+    }
+    
+    .round-button {
+        border-radius: 50px;
+        width: 50px;
+        height: 50px;
+        background-color: $secondaryColorDarker;
+        color: $backgroundColor;
+        cursor: pointer;
+        margin: 5px;
+        z-index: 9999 !important;
+    }
+    
+    .round-button:hover {
+        background-color: #cacbcd !important;
+    }
+    
+    .round-button.active {
+        border: 1px solid $highlightColor !important;
+    }
+    
+    .round-button i {
+        margin: 15px;
+    }
+}
+

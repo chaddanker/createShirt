@@ -1,0 +1,17 @@
+.emoji {
+	margin-left: 2em;
+	margin-top: 1em;
+
+	.img-container {
+		width: 40px;
+		height: 40px;
+		float: left;
+	} 
+
+	img:hover {
+		cursor: pointer;
+		height: 35px;
+		width: 35px;
+	}
+
+}

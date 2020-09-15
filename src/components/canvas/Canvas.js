@@ -1,27 +1,31 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
+
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { addPhoto } from '../../actions';
 
 import Tools from './Tools';
-import Modal from '../Modal';
-import history from '../../history';
-import { canvasChanged, canvasDone } from '../../actions';
-import '../Swiper.css';
+
+import './Canvas.scss';
+import './data/fonts/index.css';
 
 class Canvas extends Component {
-  state = { isContinued: false };
+
+  constructor() {
+    super();
+
+    this.canvasRef = createRef();
+
+    this.state = {
+      done: false,
+      canvasImage: '',
+      canvasObject: {}
+    };
+  }
 
   componentDidMount() {
     this.canvas = new window.fabric.Canvas('c');
-
-    if(Object.keys(this.props.objects).length === 0 && this.props.objects.constructor === Object){
-      this.addImageToCanvas('images/ShortTShirtAdultsTemplate.png', 957, 940, 0.6, false, 0, 0); //bg image  
-    } else if(this.state.isContinued === false) {
-      this.setState({ isContinued: true });
-      this.canvas.loadFromJSON(this.props.objects.canvasObject);
-    }
-
-    this.onDeleteKey();
+    
+    this.onDeleteKey(); //adds event listener for 'Delete' key press
   }
 
   addImageToCanvas = (url, width, height, scale, selectable, left, right) => {
@@ -54,27 +58,34 @@ class Canvas extends Component {
       const canvasImage = this.canvas.toDataURL('png');
       const canvasObject = this.canvas.toObject();
 
-      this.props.canvasDone(canvasImage, canvasObject);
+      this.props.addPhoto(canvasImage);
 
-      history.push('/checkout');
+      this.setState({
+        done: true,
+        canvasImage,
+        canvasObject
+      });
+
   }
 
   onCanvasClick = () => {
     const canvasObject = this.canvas.toObject();
 
-    this.props.canvasChanged(canvasObject);
+    this.setState({
+      canvasObject
+    });
   }
 
-  onFileUpload = (e) => {
-    var reader = new window.FileReader();
-    reader.onload = (event) => {
-        var imgObj = new window.Image();
-        imgObj.src = event.target.result;
-        imgObj.onload = () => {
-            var image = new window.fabric.Image(imgObj);
+  onFileUpload = e => {
+    let reader = new window.FileReader();
+    reader.onload = event => {
+        let imageObject = new window.Image();
+        imageObject.src = event.target.result;
+        imageObject.onload = () => {
+            let image = new window.fabric.Image(imageObject);
             image.set({
-                left: 230,
-                top: 250,
+                left: 50,
+                top: 50,
                 angle: 0,
                 padding: 10,
                 cornersize: 10,
@@ -91,7 +102,7 @@ class Canvas extends Component {
 
   onDeleteKey() {
     document.querySelector('html').addEventListener('keyup', (e) => {
-      if(e.keyCode == 46) {
+      if(e.key === 'Delete') {
           this.canvas.remove(this.canvas.getActiveObject());
       }
     });
@@ -99,22 +110,33 @@ class Canvas extends Component {
 
   render() {
     return (
-      <div>
-        <div className="ui row">
-          <div id="canvas-div" onClick={() => {this.onCanvasClick()}}>
-    		      <canvas id="c" width="600px" height="600px"></canvas>
-    	   </div>
-        </div>
-        <Tools onFileUpload={this.onFileUpload} onDoneClick={this.onDoneClick} addImageToCanvas={this.addImageToCanvas} addTextToCanvas={this.addTextToCanvas}/>
+      <div 
+        className="canvas" 
+        onClick={() => {this.onCanvasClick()}}
+      >
+        <canvas 
+          ref={this.canvasDom}
+          id="c" 
+          width="400px" 
+          height="225px"
+        >
+        </canvas>
+        <Tools 
+          onFileUpload={this.onFileUpload} 
+          addImageToCanvas={this.addImageToCanvas} 
+          addTextToCanvas={this.addTextToCanvas}  
+          onDoneClick={this.onDoneClick}
+        />
+        <button 
+          className="ui button yellow done" 
+          onClick={() => {this.onDoneClick()}} 
+          id="done"
+        >
+          <i className="ui inverted check icon"></i>
+        </button>
       </div>
     );
   }
 };
 
-const mapStateToProps = (state) => {
-   return {
-      objects: state.canvasObject
-   };
-};
-
-export default connect(mapStateToProps, { canvasChanged, canvasDone })(Canvas);
+export default connect(null, { addPhoto })(Canvas);

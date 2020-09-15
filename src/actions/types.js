@@ -9,3 +9,5 @@ export const SIGN_OUT = 'SIGN_OUT';
 export const FETCH_ORDERS = 'FETCH_ORDERS';
 
 export const FETCH_CANVAS_OBJECT = 'FETCH_CANVAS_OBJECT';
+
+export const ADD_PHOTO = 'ADD_PHOTO';

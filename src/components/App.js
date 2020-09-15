@@ -1,39 +1,39 @@
-import React from 'react';
-import { Router, Route, Switch } from 'react-router-dom';
+import React, { Component } from 'react';
+import { Router } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import history from '../history';
-
-import Header from './Header';
+import Display from './Display';
 import Canvas from './canvas/Canvas';
-import Text from './canvas/Text';
-import Emoji from './canvas/Emoji';
-import Checkout from './Checkout';
-import Orders from './Orders';
-import Draft from './canvas/Draft';
 
-const App = () => {
-	return (
-		<div>
-			<Router history={history} >
-				<div>
-					<div className="ui container">
-						<Header />
-						<Switch>
-							<Route path="/" exact component={Canvas}/>
-							<Route path="/text" exact component={Text}/>
-							<Route path="/emoji" exact component={Emoji}/>
-							<Route path="/checkout" exact component={Checkout}/>
-							<Route path="/orders" exact component={Orders}/>
-							<Route path="/draft" exact component={Draft}/>
-						</Switch>
-					</div>
-				</div>				
-			</Router>
-		</div>
+import './App.scss';
 
-	);
+class App extends Component{
+	render() {
+		return (
+			<div className="canvas-app">
+				<Router history={history} >
+					<div className="page">
+						<div className="ui container">
+							<h1>React-Fabric</h1>
+							<Canvas />
+							<Display />
+						</div>
+					</div>				
+				</Router>
+			</div>
+
+		);		
+	}
+
 };
 
-export default App;
+const mapStateToProps = ({canvasImage}) => {
+	return {
+		canvasImage
+	}
+};
+
+export default connect(mapStateToProps, {})(App);
 
 

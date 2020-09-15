@@ -4,5 +4,9 @@ export default [
   'Tusker',
   'Brightly Crush Shine',
   'Chasy',
+  'Dearest',
+  'Tusker',
+  'Brightly Crush Shine',
+  'Chasy',
   'Dearest'
 ];

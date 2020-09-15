@@ -1,4 +1,4 @@
-import { FETCH_ORDERS, CANVAS_CHANGED, CANVAS_DONE, SIGN_IN, SIGN_OUT, FETCH_CANVAS_OBJECT } from './types';
+import { FETCH_ORDERS, CANVAS_CHANGED, CANVAS_DONE, SIGN_IN, SIGN_OUT, FETCH_CANVAS_OBJECT, ADD_PHOTO } from './types';
 
 import createShirt from '../apis/createShirt';
 
@@ -10,13 +10,6 @@ export const canvasChanged = (canvasObject) => {
 };
 
 export const canvasDone = (canvasImage, canvasObject) => async (dispatch, getState) => {
-	const { userId } = getState().auth;
-	const response = await createShirt.post('/orders', { 
-		userId: userId,
-		canvasImage: canvasImage,
-		canvasObject: canvasObject
-	});
-
 
 	dispatch({
 		type: CANVAS_DONE,
@@ -52,3 +45,10 @@ export const fetchCanvasObject = (orderId) => async (dispatch, getState)  => {
 		}
 	});
 };
+
+export const addPhoto = photo => {
+	return {
+		type: ADD_PHOTO,
+		payload: photo
+	};
+}
