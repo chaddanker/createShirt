@@ -18,9 +18,5 @@ export default [
 "1f606.png",
 "1f607.png",
 "1f608.png",
-"1f609.png",
-"1f600.png",
-"1f601.png",
-"1f609.png",
-"1f600.png",
+"1f609.png"
 ];

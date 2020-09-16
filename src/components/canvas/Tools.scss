@@ -4,21 +4,19 @@ $secondaryColorDarker: #bbbcbf;
 $highlightColor: #fbbd08;
 
 .tools {
+    border-top: 1px solid #fbbd08 !important;
     height: 215px;
     background-color: $backgroundColor;
     z-index: 999;
     margin: 10px;
-
-    .ui .grid .tools-select {
-        border-top: #fbbd08 !important;
-    }
+    padding-top: 1.77em;
+    padding-left: 5px;
 
     #btn-download {
         margin: 5px; 
         height: 30px;
     }
-    /* tools */
-    
+
     .ui .vertical .icon .menu {
         float: right;
     }
@@ -45,5 +43,6 @@ $highlightColor: #fbbd08;
     .round-button i {
         margin: 15px;
     }
+  
 }
 

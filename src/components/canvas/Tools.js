@@ -17,7 +17,7 @@ class Tools extends Component {
 
 			case 'Emoji': return <Emoji addImageToCanvas={this.props.addImageToCanvas} />;
 
-			case 'Image': return <Image onFileUpload={this.props.onFileUpload} />;
+			case 'Image': return <Image onFileUpload={this.props.onFileUpload} images={this.props.images}/>;
 
 			default : return <Text addTextToCanvas={this.props.addTextToCanvas}/>;
 		}
@@ -26,7 +26,6 @@ class Tools extends Component {
 	render() {
 		return (
 			<div className="tools">
-				<hr className="rule" />
 				<div className="ui grid tools-select">
 					<div className="three wide column">
 						<div

@@ -6,6 +6,8 @@ import checkoutReducer from './checkoutReducer';
 import orderReducer from './orderReducer';
 import draftReducer from './draftReducer';
 import photosReducer from './photosReducer';
+import objectsReducer from './objectsReducer';
+import selectedReducer from './selectedReducer';
 
 export default combineReducers({
 	canvasObject: canvasReducer,
@@ -13,5 +15,7 @@ export default combineReducers({
 	canvasImage: checkoutReducer,
 	orders: orderReducer,
 	draftObject: draftReducer,
-	photos: photosReducer
+	photos: photosReducer,
+	canvasObjects: objectsReducer,
+	selected: selectedReducer
 });

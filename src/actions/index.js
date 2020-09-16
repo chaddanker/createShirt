@@ -1,4 +1,4 @@
-import { FETCH_ORDERS, CANVAS_CHANGED, CANVAS_DONE, SIGN_IN, SIGN_OUT, FETCH_CANVAS_OBJECT, ADD_PHOTO } from './types';
+import { FETCH_ORDERS, CANVAS_CHANGED, CANVAS_DONE, SIGN_IN, SIGN_OUT, FETCH_CANVAS_OBJECT, ADD_PHOTO, ADD_CANVAS_OBJECT, UPDATE_SELECTED_OBJECT } from './types';
 
 import createShirt from '../apis/createShirt';
 
@@ -51,4 +51,18 @@ export const addPhoto = photo => {
 		type: ADD_PHOTO,
 		payload: photo
 	};
+}
+
+export const addObject = obj => {
+	return {
+		type: ADD_CANVAS_OBJECT,
+		payload: obj
+	}
+}
+
+export const updateSelectedObject = index => {
+	return {
+		type: UPDATE_SELECTED_OBJECT,
+		payload: index
+	}
 }

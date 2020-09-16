@@ -3,16 +3,22 @@ import { connect } from 'react-redux';
 
 import Swiper from 'react-id-swiper';
 
+import { updateSelectedObject } from '../actions';
+
 import './Display.scss';
 import 'swiper/css/swiper.min.css';
 
 class Display extends Component {
 
+    state = {
+        hover: null
+    };
+
     renderSlides() {
         return this.props.photos.map((photo, i) => {
             return (
-                <div>
-                    <img src={photo} />
+                <div className="image-div" onClick={() => this.props.updateSelectedObject(i)}>
+                    <img className="slider-image" alt="slide" src={photo} />
                 </div>
             );
         });
@@ -36,10 +42,11 @@ class Display extends Component {
 }
 
 
-const mapStateToProps = ({photos}) => {
+const mapStateToProps = ({photos, canvasObjects}) => {
     return {
-        photos
+        photos,
+        canvasObjects
     };
 };
 
-export default connect(mapStateToProps, null)(Display);
+export default connect(mapStateToProps, {updateSelectedObject})(Display);

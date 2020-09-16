@@ -1,7 +1,7 @@
 import React, { Component, createRef } from 'react';
 
 import { connect } from 'react-redux';
-import { addPhoto } from '../../actions';
+import { addPhoto, addObject } from '../../actions';
 
 import Tools from './Tools';
 
@@ -17,15 +17,43 @@ class Canvas extends Component {
 
     this.state = {
       done: false,
+      displayingDraft: -1,
       canvasImage: '',
-      canvasObject: {}
+      canvasObject: {},
+      canvasImages: [],
+      canvasObjects: []
     };
   }
 
   componentDidMount() {
     this.canvas = new window.fabric.Canvas('c');
-    
+
     this.onDeleteKey(); //adds event listener for 'Delete' key press
+  }
+
+  componentDidUpdate() {
+
+    if(this.props.selected !== null && this.state.displayingDraft !== this.props.selected) {
+      this.canvas.clear().renderAll();
+      this.canvas.loadFromJSON(this.props.canvasObjects[this.props.selected]);
+      this.setState({
+        displayingDraft: this.props.selected
+      });
+    }
+        
+    this.deleteButton();
+
+    const btnDelete = document.querySelector('.btn-delete');
+
+    if(document.querySelector('.btn-delete')) {
+      document.querySelector('.btn-delete').addEventListener('click', () => {
+        if(this.canvas.getActiveObject())
+        {
+            this.canvas.remove(this.canvas.getActiveObject());
+            btnDelete.parentNode.removeChild(btnDelete);
+        }
+      });
+    }
   }
 
   addImageToCanvas = (url, width, height, scale, selectable, left, right) => {
@@ -59,12 +87,15 @@ class Canvas extends Component {
       const canvasObject = this.canvas.toObject();
 
       this.props.addPhoto(canvasImage);
+      this.props.addObject(canvasObject);
 
-      this.setState({
+      this.setState(({canvasImages, canvasObjects}) => ({
         done: true,
         canvasImage,
-        canvasObject
-      });
+        canvasObject,
+        canvasImages: [...canvasImages, canvasImage],
+        canvasObjects: [...canvasObjects, canvasObject]
+      }));
 
   }
 
@@ -80,6 +111,9 @@ class Canvas extends Component {
     let reader = new window.FileReader();
     reader.onload = event => {
         let imageObject = new window.Image();
+        this.setState(({canvasImages}) => ({
+          canvasImages: [...canvasImages, event.target.result]
+        }));
         imageObject.src = event.target.result;
         imageObject.onload = () => {
             let image = new window.fabric.Image(imageObject);
@@ -97,8 +131,80 @@ class Canvas extends Component {
             this.canvas.add(image);
         };
     };
+
     reader.readAsDataURL(e.target.files[0]);
+
   }
+
+  addDeleteBtn = (x, y) => {
+        
+    const btnDelete = document.querySelector('.btn-delete');
+
+    if(btnDelete) {
+      btnDelete.parentNode.removeChild(btnDelete);
+    }
+    let btnLeft = x - 30;
+    let btnTop = y - 30;
+    var deleteBtn = document.createElement('img');
+    deleteBtn.src = "/images/delete.svg";
+    deleteBtn.alt = "delete button";
+    deleteBtn.style = `position:absolute;top:${btnTop}px;left:${btnLeft}px;cursor:pointer;width:60px;height:60px;`;
+    deleteBtn.className = "btn-delete";
+    document.querySelector('.canvas-container').appendChild(deleteBtn);
+  }
+
+  
+deleteButton = () => {
+
+  //needs refactoring badly.
+
+  this.canvas.on('object:selected',(e) => {
+      this.addDeleteBtn(e.target.oCoords.tr.x, e.target.oCoords.tr.y);
+  });
+
+  this.canvas.on('mouse:down',(e) => {
+      if(!this.canvas.getActiveObject())
+      {
+        if(document.querySelector('.btn-delete')) {
+          document.querySelector('.btn-delete').parentNode.removeChild(document.querySelector('.btn-delete')); 
+        }
+      }
+  });
+
+  this.canvas.on('object:modified',(e) => {
+  this.addDeleteBtn(e.target.oCoords.tr.x, e.target.oCoords.tr.y);
+  });
+
+  this.canvas.on('object:scaling',(e) => {
+      if(document.querySelector('.btn-delete')) {
+        document.querySelector('.btn-delete').parentNode.removeChild(document.querySelector('.btn-delete')); 
+      }
+    });
+
+  this.canvas.on('object:moving',(e) => {
+      if(document.querySelector('.btn-delete')) {
+        document.querySelector('.btn-delete').parentNode.removeChild(document.querySelector('.btn-delete')); 
+      }
+    });
+
+  this.canvas.on('object:rotating',(e) => {
+      if(document.querySelector('.btn-delete')) {
+        document.querySelector('.btn-delete').parentNode.removeChild(document.querySelector('.btn-delete')); 
+      }
+    });
+
+  if(document.querySelector('.btn-delete')) {
+    document.querySelector('.btn-delete').addEventListener('click', e => {
+        if(this.canvas.getActiveObject())
+        {
+            this.canvas.remove(this.canvas.getActiveObject());
+            document.querySelector('.btn-delete').parentNode.removeChild(document.querySelector('.btn-delete')); 
+        }
+    });
+}
+
+}
+
 
   onDeleteKey() {
     document.querySelector('html').addEventListener('keyup', (e) => {
@@ -117,8 +223,8 @@ class Canvas extends Component {
         <canvas 
           ref={this.canvasDom}
           id="c" 
-          width="400px" 
-          height="225px"
+          width="350px" 
+          height="196.875px"
         >
         </canvas>
         <Tools 
@@ -126,6 +232,7 @@ class Canvas extends Component {
           addImageToCanvas={this.addImageToCanvas} 
           addTextToCanvas={this.addTextToCanvas}  
           onDoneClick={this.onDoneClick}
+          canvasImages={this.state.images}
         />
         <button 
           className="ui button yellow done" 
@@ -139,4 +246,11 @@ class Canvas extends Component {
   }
 };
 
-export default connect(null, { addPhoto })(Canvas);
+const mapStateToProps = ({selected, canvasObjects}) => {
+  return {
+    canvasObjects,
+    selected
+  }
+};
+
+export default connect(mapStateToProps, { addPhoto, addObject })(Canvas);

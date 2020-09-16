@@ -5,15 +5,30 @@
         width: 80% !important; 
         font-size: 1.5em !important;
         border: none !important;
-    }
-
-    .add {
+    }   
+    
+    .round-button {
         border-radius: 50px !important;
         width: 50px !important;
         height: 50px !important;
-        margin-top: 1.2em;
-        margin-right: 0.5em !important;
-    }       
+        background-color: #bbbcbf;
+        color: #ffffff;
+        cursor: pointer;
+        margin-top: 1.2em !important;
+        z-index: 9999 !important;
+    }
+    
+    .floated-right {
+        float: right;
+    }
+
+    .round-button:hover {
+        background-color: #cacbcd !important;
+    }
+
+    .round-button i {
+        margin: 15px;
+    }
 
     .swiper-container {
         margin-top: 1em;
@@ -25,8 +40,8 @@
     
     .swiper-slide {
         padding-top: 6px;
-        width: 50px !important;
-        height: 50px !important;
+        width: 30px !important;
+        height: 30px !important;
         text-align: center;
         cursor: pointer !important;
     }

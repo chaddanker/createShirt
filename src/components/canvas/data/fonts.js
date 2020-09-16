@@ -1,12 +1,12 @@
 export default [
-  'Sketch Gothic School',
+  'Brightly Crush Shine', 
   'Gothic',
   'Tusker',
-  'Brightly Crush Shine',
+  'Dearest',
   'Chasy',
   'Dearest',
   'Tusker',
   'Brightly Crush Shine',
-  'Chasy',
-  'Dearest'
+  'Chasy', 
+  'Sketch Gothic School',
 ];

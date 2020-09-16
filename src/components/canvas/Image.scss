@@ -6,13 +6,19 @@
     }
     
     #for-img {
-        margin-top: 3em;
-        width: 50px !important;
-        height: 50px !important;
+        margin-top: 5em;
+        margin-left: 1.5em;
+        width: 90% !important;
         border-radius: 50px !important;
         margin-bottom: 0;
+        color: #ffffff;
+        background-color: #bbbcbf;
     }
     
+    #for-img:hover {
+        background-color: #cdced0;
+    }
+
     #for-img i {
         position: relative;
         top: 5px;

@@ -6,7 +6,7 @@ import 'swiper/css/swiper.min.css';
 import './Text.scss';
 
 class Text extends Component {
-  state = { text: '', selectedFont: 'Sketch Gothic School' };
+  state = { text: '', selectedFont: 'Brightly Crush Shine' };
 
   renderFonts() {
     return fonts.map((font) => {
@@ -32,7 +32,7 @@ class Text extends Component {
                       onChange={(e) => this.setState({ text: e.target.value })} 
                       style={{fontFamily: this.state.selectedFont}} 
                       type="text" 
-                      placeholder="text..." 
+                      placeholder="write something..." 
                       id="text-input"
                     />
                   </div>
@@ -43,13 +43,12 @@ class Text extends Component {
                   </Swiper>
                 </div>
               </div>
-              <button 
+              <div 
                 onClick={() => this.props.addTextToCanvas(this.state.text, this.state.selectedFont, 'Black', 100, 100)} 
-                className="ui yellow button add right floated" 
-                type="submit"
+                className="round-button floated-right"
               >
-                +
-              </button>
+                <i className="ui add icon"></i>
+              </div>
           </div>
     );
   }
