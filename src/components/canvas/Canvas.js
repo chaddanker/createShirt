@@ -18,6 +18,7 @@ class Canvas extends Component {
     this.state = {
       done: false,
       displayingDraft: -1,
+      deleteButtonAttachedTo: null, 
       canvasImage: '',
       canvasObject: {},
       canvasImages: [],
@@ -37,11 +38,11 @@ class Canvas extends Component {
       this.canvas.clear().renderAll();
       this.canvas.loadFromJSON(this.props.canvasObjects[this.props.selected]);
       this.setState({
-        displayingDraft: this.props.selected
+        displayingDraft: this.props.selected //index of canvas object
       });
     }
         
-    this.deleteButton();
+    this.deleteButton(); //logic for canvas item's delete button
 
     const btnDelete = document.querySelector('.btn-delete');
 
@@ -137,77 +138,78 @@ class Canvas extends Component {
   }
 
   addDeleteBtn = (x, y) => {
-        
+    
     const btnDelete = document.querySelector('.btn-delete');
 
     if(btnDelete) {
       btnDelete.parentNode.removeChild(btnDelete);
     }
-    let btnLeft = x - 30;
-    let btnTop = y - 30;
+    let btnLeft = x - 20;
+    let btnTop = y - 20;
     var deleteBtn = document.createElement('img');
     deleteBtn.src = "/images/delete.svg";
-    deleteBtn.alt = "delete button";
-    deleteBtn.style = `position:absolute;top:${btnTop}px;left:${btnLeft}px;cursor:pointer;width:60px;height:60px;`;
+    deleteBtn.alt = "delete";
+    deleteBtn.style = `position:absolute;top:${btnTop}px;left:${btnLeft}px;cursor:pointer;width:40px;height:40px;`;
     deleteBtn.className = "btn-delete";
     document.querySelector('.canvas-container').appendChild(deleteBtn);
+
+    if(document.querySelector('.btn-delete')) {
+      this.setState({
+        deleteButtonAttachedTo: this.canvas.getActiveObject()
+      });
+      document.querySelector('.btn-delete').addEventListener('click', e => {
+          if(this.canvas.getActiveObject())
+          {
+              this.canvas.remove(this.canvas.getActiveObject());
+              document.querySelector('.btn-delete').parentNode.removeChild(document.querySelector('.btn-delete')); 
+          }
+      });
+    }
   }
 
+removeDeleteButton = () => {
+  if(document.querySelector('.btn-delete')) {
+    document.querySelector('.btn-delete').parentNode.removeChild(document.querySelector('.btn-delete')); 
+  }
+}
   
 deleteButton = () => {
 
-  //needs refactoring badly.
+  //needs refactoring
+  //logic for adding / removing del button from canvas objects
 
-  this.canvas.on('object:selected',(e) => {
+  this.canvas.on('object:selected', e => {
       this.addDeleteBtn(e.target.oCoords.tr.x, e.target.oCoords.tr.y);
   });
 
-  this.canvas.on('mouse:down',(e) => {
-      if(!this.canvas.getActiveObject())
-      {
-        if(document.querySelector('.btn-delete')) {
-          document.querySelector('.btn-delete').parentNode.removeChild(document.querySelector('.btn-delete')); 
-        }
+  this.canvas.on('mouse:down', e => {
+      if(!this.canvas.getActiveObject()) this.removeDeleteButton();
+      if(this.state.deleteButtonAttachedTo !== this.canvas.getActiveObject()) {
+        this.removeDeleteButton();
+        this.addDeleteBtn(e.target.oCoords.tr.x, e.target.oCoords.tr.y);
       }
   });
 
-  this.canvas.on('object:modified',(e) => {
-  this.addDeleteBtn(e.target.oCoords.tr.x, e.target.oCoords.tr.y);
+  this.canvas.on('object:modified', e => {
+    this.addDeleteBtn(e.target.oCoords.tr.x, e.target.oCoords.tr.y);
   });
 
-  this.canvas.on('object:scaling',(e) => {
-      if(document.querySelector('.btn-delete')) {
-        document.querySelector('.btn-delete').parentNode.removeChild(document.querySelector('.btn-delete')); 
-      }
-    });
+  this.canvas.on('object:scaling', e => {
+    this.removeDeleteButton();
+  });
 
-  this.canvas.on('object:moving',(e) => {
-      if(document.querySelector('.btn-delete')) {
-        document.querySelector('.btn-delete').parentNode.removeChild(document.querySelector('.btn-delete')); 
-      }
-    });
+  this.canvas.on('object:moving', e => {
+    this.removeDeleteButton();
+  });
 
-  this.canvas.on('object:rotating',(e) => {
-      if(document.querySelector('.btn-delete')) {
-        document.querySelector('.btn-delete').parentNode.removeChild(document.querySelector('.btn-delete')); 
-      }
-    });
-
-  if(document.querySelector('.btn-delete')) {
-    document.querySelector('.btn-delete').addEventListener('click', e => {
-        if(this.canvas.getActiveObject())
-        {
-            this.canvas.remove(this.canvas.getActiveObject());
-            document.querySelector('.btn-delete').parentNode.removeChild(document.querySelector('.btn-delete')); 
-        }
-    });
-}
+  this.canvas.on('object:rotating', e => {
+    this.removeDeleteButton();
+  });
 
 }
-
 
   onDeleteKey() {
-    document.querySelector('html').addEventListener('keyup', (e) => {
+    document.querySelector('html').addEventListener('keyup', e => {
       if(e.key === 'Delete') {
           this.canvas.remove(this.canvas.getActiveObject());
       }

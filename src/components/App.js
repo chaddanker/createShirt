@@ -14,8 +14,8 @@ class App extends Component{
 			<div className="canvas-app">
 				<Router history={history} >
 					<div className="page">
+						<h1>Canvas To PNG</h1>
 						<div className="ui container">
-							<h1>React-Fabric</h1>
 							<Canvas />
 							<Display />
 						</div>
