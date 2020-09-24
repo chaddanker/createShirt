@@ -1,13 +1,5 @@
 ## React-Fabric
 
-To Do: 
-
- - clean up styling, remove all unecessary styles
- - host emojis, on cdn
- - change all fonts to google fonts.
- - remove fonts file
- - append fabric.js script to page from code 
-
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
