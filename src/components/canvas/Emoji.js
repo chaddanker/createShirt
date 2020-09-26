@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import './Emoji.scss';
-import emojis from './data/emojis';
+import emojis from './assets/emojis';
 
 class Emoji extends Component {
 
@@ -13,6 +13,7 @@ class Emoji extends Component {
                 src={`Emojis/Expressions/${emojiURL}`} 
                 onClick={() => this.props.addImageToCanvas(`Emojis/Expressions/${emojiURL}`, 512, 512, 0.1, true, 100, 100)} 
                 height="30" width="30" 
+                alt="emotion"
               />
             </div>
       );

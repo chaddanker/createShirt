@@ -31,3 +31,6 @@ fonts
 config
 keys.js
 .vercel
+
+reducers
+actions

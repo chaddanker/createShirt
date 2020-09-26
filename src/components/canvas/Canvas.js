@@ -6,7 +6,7 @@ import { addPhoto, addObject } from '../../actions';
 import Tools from './Tools';
 
 import './Canvas.scss';
-import './data/fonts/index.css';
+import './assets/fonts/index.css';
 
 class Canvas extends Component {
 
@@ -30,18 +30,6 @@ class Canvas extends Component {
     this.canvas = new window.fabric.Canvas('c');
 
     this.onDeleteKey(); //adds event listener for 'Delete' key press
-  }
-
-  componentDidUpdate() {
-
-    if(this.props.selected !== null && this.state.displayingDraft !== this.props.selected) {
-      this.canvas.clear().renderAll();
-      this.canvas.loadFromJSON(this.props.canvasObjects[this.props.selected]);
-      this.setState({
-        displayingDraft: this.props.selected //index of canvas object
-      });
-    }
-        
     this.deleteButton(); //logic for canvas item's delete button
 
     const btnDelete = document.querySelector('.btn-delete');
@@ -53,6 +41,19 @@ class Canvas extends Component {
             this.canvas.remove(this.canvas.getActiveObject());
             btnDelete.parentNode.removeChild(btnDelete);
         }
+      });
+    }
+  }
+
+  componentDidUpdate() {
+    console.log('updated');
+
+    if(this.props.selected !== null && this.state.displayingDraft !== this.props.selected) {
+      this.removeDeleteButton();
+      this.canvas.clear().renderAll();
+      this.canvas.loadFromJSON(this.props.canvasObjects[this.props.selected]);
+      this.setState({
+        displayingDraft: this.props.selected //index of canvas object
       });
     }
   }
@@ -100,14 +101,6 @@ class Canvas extends Component {
 
   }
 
-  onCanvasClick = () => {
-    const canvasObject = this.canvas.toObject();
-
-    this.setState({
-      canvasObject
-    });
-  }
-
   onFileUpload = e => {
     let reader = new window.FileReader();
     reader.onload = event => {
@@ -136,7 +129,8 @@ class Canvas extends Component {
     reader.readAsDataURL(e.target.files[0]);
 
   }
-
+  
+  //adds delete button to coordinates (x, y) on a selected canvas object(top right corner)
   addDeleteBtn = (x, y) => {
     
     const btnDelete = document.querySelector('.btn-delete');
@@ -175,9 +169,6 @@ removeDeleteButton = () => {
   
 deleteButton = () => {
 
-  //needs refactoring
-  //logic for adding / removing del button from canvas objects
-
   this.canvas.on('object:selected', e => {
       this.addDeleteBtn(e.target.oCoords.tr.x, e.target.oCoords.tr.y);
   });
@@ -186,7 +177,8 @@ deleteButton = () => {
       if(!this.canvas.getActiveObject()) this.removeDeleteButton();
       if(this.state.deleteButtonAttachedTo !== this.canvas.getActiveObject()) {
         this.removeDeleteButton();
-        this.addDeleteBtn(e.target.oCoords.tr.x, e.target.oCoords.tr.y);
+        if(e.target)
+          this.addDeleteBtn(e.target.oCoords.tr.x, e.target.oCoords.tr.y);
       }
   });
 

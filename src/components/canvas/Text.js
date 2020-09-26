@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Swiper from 'react-id-swiper';
-import fonts from './data/fonts';
+import fonts from './assets/fonts';
 
 import 'swiper/css/swiper.min.css';
 import './Text.scss';
