@@ -15,6 +15,7 @@ class App extends Component{
 				<Router history={history} >
 					<div className="page">
 						<div className="ui container">
+							<h1 style={{borderBottom: '1px solid #fbbd08 !important'}}>{'Create A Shirt'.toUpperCase()}</h1>
 							<Canvas />
 							<Display />
 						</div>

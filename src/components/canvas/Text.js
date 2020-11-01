@@ -6,7 +6,7 @@ import 'swiper/css/swiper.min.css';
 import './Text.scss';
 
 class Text extends Component {
-  state = { text: '', selectedFont: 'Brightly Crush Shine' };
+  state = { text: '', selectedFont: 'Arial' };
 
   renderFonts() {
     return fonts.map((font) => {

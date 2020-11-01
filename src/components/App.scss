@@ -1,8 +1,13 @@
 body {
-    background-color: #fbbe0876;
+    background-color: #d8d8d876;
+    
     .canvas-app {
-
         .page {
+            h1 {
+                padding-top: .2em;
+                font-family: 'Ling';
+                font-size: 5em;
+            }
             text-align: center;
         }
     }

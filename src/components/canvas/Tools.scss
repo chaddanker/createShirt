@@ -4,13 +4,13 @@ $secondaryColorDarker: #bbbcbf;
 $highlightColor: #fbbd08;
 
 .tools {
-    border-top: 1px solid #fbbd08 !important;
+    border-top: 4px solid #000000 !important;
     height: 215px;
     background-color: $backgroundColor;
     z-index: 999;
     margin: 10px;
     padding-top: 1.77em;
-    padding-left: 5px;
+    padding-left: 15px;
 
     #btn-download {
         margin: 5px; 
@@ -37,7 +37,7 @@ $highlightColor: #fbbd08;
     }
     
     .round-button.active {
-        border: 1px solid $highlightColor !important;
+        border: 2px solid black !important;
     }
     
     .round-button i {

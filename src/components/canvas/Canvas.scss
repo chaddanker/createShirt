@@ -7,16 +7,20 @@ button {
 }
 
 .canvas {
-
+    border: 4px solid black;
     background-color: #ffffff;
-    border: 1px solid #fbbd08;
-    width: 350px;
-    margin: 2.5em auto;
+    width: 450px;
+    margin: auto;
     text-align: center;
-    height: 480px;
+    height: 640px;
 
     #done {
-        width: 100%;
+        width: 101%;
         height: 50px;
+        margin-bottom: 2em;
+        background-color: black;
+        padding-left: 3px !important;
+        position: relative;
+        left: -2px;
     }    
 }

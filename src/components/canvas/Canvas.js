@@ -28,10 +28,9 @@ class Canvas extends Component {
 
   componentDidMount() {
     this.canvas = new window.fabric.Canvas('c');
-
     this.onDeleteKey(); //adds event listener for 'Delete' key press
     this.deleteButton(); //logic for canvas item's delete button
-
+    this.addImageToCanvas('images/ShortTShirtAdultsTemplate.png', 957, 940, 0.4, false, 35, 0);
     const btnDelete = document.querySelector('.btn-delete');
 
     if(document.querySelector('.btn-delete')) {
@@ -212,13 +211,12 @@ deleteButton = () => {
     return (
       <div 
         className="canvas" 
-        onClick={() => {this.onCanvasClick()}}
       >
         <canvas 
           ref={this.canvasDom}
           id="c" 
-          width="350px" 
-          height="196.875px"
+          width="450px" 
+          height="350px"
         >
         </canvas>
         <Tools 
@@ -229,7 +227,7 @@ deleteButton = () => {
           canvasImages={this.state.images}
         />
         <button 
-          className="ui button yellow done" 
+          className="ui button done" 
           onClick={() => {this.onDoneClick()}} 
           id="done"
         >

@@ -1,5 +1,9 @@
+$width: 225px;
+$height: 175px;
+
 .display {
   .swiper-container {
+    margin: 1em auto;
     width: 100vw !important;
     .swiper-slide {
       text-align: center;
@@ -7,8 +11,8 @@
       background: #fff;
       box-shadow: 0 0 5px 5px rgba($color: #000000, $alpha: 0.2);
       margin: 30px;
-      width: 160px !important;
-      height: 90px !important;
+      width: $width !important;
+      height: $height !important;
 
       /* Center slide text vertically */
       display: -webkit-box;
@@ -25,8 +29,8 @@
       align-items: center;
 
       img {
-          width: 160px !important;
-          height: 90px !important;      
+          width: $width !important;
+          height: $height !important;      
       }
 
       img:hover {
