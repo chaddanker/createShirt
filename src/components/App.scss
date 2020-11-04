@@ -1,15 +1,14 @@
 body {
-    background-color: #d8d8d876;
-    
+    background: #00000005;
+    width: 100vw;
     .canvas-app {
         .page {
+            width: 100%;
             h1 {
                 padding-top: .2em;
-                font-family: 'Ling';
-                font-size: 5em;
+                font-family: 'Retrow Mentho';
             }
             text-align: center;
         }
     }
 }
-

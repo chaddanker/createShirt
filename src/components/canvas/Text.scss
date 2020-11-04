@@ -17,6 +17,11 @@
         margin-top: 1.2em !important;
         z-index: 9999 !important;
     }
+
+    .relative-4px {
+        position: relative;
+        bottom: -4px;
+    }
     
     .floated-right {
         float: right;

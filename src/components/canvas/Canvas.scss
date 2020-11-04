@@ -7,9 +7,9 @@ button {
 }
 
 .canvas {
-    border: 4px solid black;
+    border: 4px solid #333333;
     background-color: #ffffff;
-    width: 450px;
+    width: 400px;
     margin: auto;
     text-align: center;
     height: 640px;
@@ -18,9 +18,20 @@ button {
         width: 101%;
         height: 50px;
         margin-bottom: 2em;
-        background-color: black;
+        background-color: #333333;
         padding-left: 3px !important;
         position: relative;
         left: -2px;
     }    
+
+    #done:hover {
+        background-color: #000000;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .canvas {
+        text-align: center;
+        width: 350px;
+    }
 }

@@ -30,7 +30,8 @@ class Canvas extends Component {
     this.canvas = new window.fabric.Canvas('c');
     this.onDeleteKey(); //adds event listener for 'Delete' key press
     this.deleteButton(); //logic for canvas item's delete button
-    this.addImageToCanvas('images/ShortTShirtAdultsTemplate.png', 957, 940, 0.4, false, 35, 0);
+    const scale = window.innerWidth < 400 ? 0.35 : 0.4;
+    this.addImageToCanvas('images/ShortTShirtAdultsTemplate.png', 957, 940, scale, false, 5.5, 0);
     const btnDelete = document.querySelector('.btn-delete');
 
     if(document.querySelector('.btn-delete')) {
@@ -45,8 +46,6 @@ class Canvas extends Component {
   }
 
   componentDidUpdate() {
-    console.log('updated');
-
     if(this.props.selected !== null && this.state.displayingDraft !== this.props.selected) {
       this.removeDeleteButton();
       this.canvas.clear().renderAll();
@@ -57,7 +56,7 @@ class Canvas extends Component {
     }
   }
 
-  addImageToCanvas = (url, width, height, scale, selectable, left, right) => {
+  addImageToCanvas = (url, width, height, scale, selectable, left, right, isDeletable) => {
       this.canvas.isDrawingMode = false;
       window.fabric.Image.fromURL(url, (myImg) => {
       let img = myImg.set({ 
@@ -67,7 +66,7 @@ class Canvas extends Component {
           height: height,
           selectable: selectable,
           scaleX: scale, 
-          scaleY: scale
+          scaleY: scale,
       });
       this.canvas.add(img);
     });
@@ -169,14 +168,14 @@ removeDeleteButton = () => {
 deleteButton = () => {
 
   this.canvas.on('object:selected', e => {
-      this.addDeleteBtn(e.target.oCoords.tr.x, e.target.oCoords.tr.y);
+    this.addDeleteBtn(e.target.oCoords.tr.x, e.target.oCoords.tr.y);
   });
 
   this.canvas.on('mouse:down', e => {
       if(!this.canvas.getActiveObject()) this.removeDeleteButton();
       if(this.state.deleteButtonAttachedTo !== this.canvas.getActiveObject()) {
         this.removeDeleteButton();
-        if(e.target)
+        if(e.target && e.target.cacheKey !== "texture0")
           this.addDeleteBtn(e.target.oCoords.tr.x, e.target.oCoords.tr.y);
       }
   });
@@ -215,7 +214,7 @@ deleteButton = () => {
         <canvas 
           ref={this.canvasDom}
           id="c" 
-          width="450px" 
+          width={window.innerWidth < 400 ? "350px" : "400px"}
           height="350px"
         >
         </canvas>

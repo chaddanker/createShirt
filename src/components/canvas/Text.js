@@ -45,7 +45,7 @@ class Text extends Component {
               </div>
               <div 
                 onClick={() => this.props.addTextToCanvas(this.state.text, this.state.selectedFont, 'Black', 100, 100)} 
-                className="round-button floated-right"
+                className="round-button floated-right relative-4px"
               >
                 <i className="ui add icon"></i>
               </div>

@@ -4,7 +4,7 @@ $secondaryColorDarker: #bbbcbf;
 $highlightColor: #fbbd08;
 
 .tools {
-    border-top: 4px solid #000000 !important;
+    border-top: 4px solid #333333 !important;
     height: 215px;
     background-color: $backgroundColor;
     z-index: 999;
@@ -37,7 +37,7 @@ $highlightColor: #fbbd08;
     }
     
     .round-button.active {
-        border: 2px solid black !important;
+        border: 1px solid black !important;
     }
     
     .round-button i {

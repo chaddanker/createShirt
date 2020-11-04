@@ -1,4 +1,4 @@
-$width: 225px;
+$width: 200px;
 $height: 175px;
 
 .display {
@@ -37,6 +37,9 @@ $height: 175px;
         background-color: #00000036;
       }
     }    
+    .swiper-slide:hover {
+      cursor: pointer;
+    }
   }
 }
 

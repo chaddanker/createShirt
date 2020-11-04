@@ -1,9 +1,14 @@
-## React-Fabric
+## Create A Shirt
 
-##### To do: 
+Add text, emojis or your own picture to a blank t-shirt. 
 
-* add save button, 
-* autosave after every _time-period_
+To do: 
+
+- place order
+- save draft
+- checkout
+- add clothing options eg: cap, hoodie
+- price calculator
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
